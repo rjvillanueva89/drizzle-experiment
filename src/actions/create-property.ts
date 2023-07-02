@@ -1,12 +1,17 @@
 "use server"
 
+import { db } from "@/database/db"
 import { properties } from "@/database/schema/properties"
 import { createInsertSchema } from "drizzle-zod"
 
 export const createProperty = async (formData: FormData) => {
   const data = Object.fromEntries(formData)
   const schema = createInsertSchema(properties)
-  const entry = schema.parse(data)
+  const { name, monthly, notes } = schema.parse(data)
 
-  console.log(entry)
+  db.insert(properties).values({
+    name,
+    monthly,
+    notes,
+  })
 }

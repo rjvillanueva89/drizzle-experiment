@@ -1,4 +1,4 @@
-import { PropertiesForm } from "./components/properties-form"
+import { PropertiesForm } from "@/components/properties-form"
 
 export default async function Home() {
   return (

@@ -1,15 +1,15 @@
-import { sql } from "drizzle-orm"
+import { InferModel, sql } from "drizzle-orm"
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
 
-export const users = pgTable("users", {
+export const tenants = pgTable("tenants", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   name: text("name").notNull(),
+  phone: text("phone").notNull(),
   email: text("email").notNull(),
-  phone: text("phone"),
-  image: text("image"),
-  emailVerified: timestamp("emailVerified"),
+  status: text("status", { enum: ["pending", "confirmed", "declined"] }),
   created_at: timestamp("created_at").defaultNow().notNull(),
-  updated_at: timestamp("updated_at"),
 })
+
+export type Tenant = InferModel<typeof tenants>

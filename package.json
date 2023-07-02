@@ -10,7 +10,9 @@
     "db:push": "npx drizzle-kit generate:pg && npx tsx src/database/migrate.ts"
   },
   "dependencies": {
+    "clsx": "^1.2.1",
     "daisyui": "^3.1.6",
+    "dayjs": "^1.11.9",
     "drizzle-orm": "^0.27.0",
     "drizzle-zod": "0.4.3",
     "next": "13.4.7",
