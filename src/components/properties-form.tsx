@@ -2,6 +2,7 @@
 
 import { createProperty } from "@/actions/create-property"
 import { Property } from "@/database/schema/properties"
+import { useRouter } from "next/navigation"
 import { FormEventHandler } from "react"
 
 interface Props {
@@ -9,19 +10,17 @@ interface Props {
 }
 
 export const PropertiesForm = ({ data }: Props) => {
+  const { push } = useRouter()
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
-
     createProperty(formData)
+    push("/properties")
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex w-96 flex-col items-center gap-4"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
       <div className="form-control w-full max-w-sm">
         <label className="label">
           <span className="label-text">Name</span>
@@ -54,8 +53,8 @@ export const PropertiesForm = ({ data }: Props) => {
           placeholder="Notes"
         ></textarea>
       </div>
-      <div className="flex w-full justify-end">
-        <button type="submit" className="btn">
+      <div className="flex w-full justify-end gap-4">
+        <button type="submit" className="btn btn-ghost">
           Submit
         </button>
       </div>
