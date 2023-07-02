@@ -1,4 +1,4 @@
-import { PropertiesForm } from "@/components/properties-form"
+import { PropertyForm } from "@/components/property-form"
 import Link from "next/link"
 
 export default function NewPropertyPage() {
@@ -10,7 +10,7 @@ export default function NewPropertyPage() {
           Back
         </Link>
       </div>
-      <PropertiesForm />
+      <PropertyForm />
     </>
   )
 }

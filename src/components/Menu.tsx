@@ -26,7 +26,7 @@ export const Menu = ({ label }: Props) => {
 
   return (
     <div className="dropdown dropdown-hover z-50">
-      <h1 tabIndex={0} className="btn btn-ghost rounded-none mb-1">
+      <h1 tabIndex={0} className="btn btn-ghost mb-1">
         <IconBars3 className="w-5 h-5" /> {label}
       </h1>
       <ul

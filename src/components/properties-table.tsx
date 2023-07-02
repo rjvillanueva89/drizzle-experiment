@@ -2,6 +2,7 @@ import { db } from "@/database/db"
 import { Property, properties } from "@/database/schema/properties"
 import dayjs from "dayjs"
 import { Column, Datatable } from "./datatable"
+import { PropertyActions } from "./property-actions"
 
 const columns: Column<Property>[] = [
   { label: "Name", cell: ({ name }) => name },
@@ -10,6 +11,7 @@ const columns: Column<Property>[] = [
     label: "Created at",
     cell: ({ created_at }) => dayjs(created_at).format("MM/DD/YYYY"),
   },
+  { label: "", cell: ({ id }) => <PropertyActions id={id} /> },
 ]
 
 export const PropertiesTable = async () => {
