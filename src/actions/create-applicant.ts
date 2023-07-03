@@ -8,25 +8,7 @@ export const createApplicant = async (
   data: Omit<Applicant, "id" | "created_at" | "status">
 ) => {
   const schema = createInsertSchema(applicants)
-  const {
-    name,
-    phone,
-    email,
-    no_of_occupants,
-    permanent_address,
-    reason_for_renting,
-    emergency_contact_name,
-    emergency_contact_number,
-  } = schema.parse(data)
+  const entry = schema.parse(data)
 
-  await db.insert(applicants).values({
-    name,
-    phone,
-    email,
-    no_of_occupants,
-    permanent_address,
-    reason_for_renting,
-    emergency_contact_name,
-    emergency_contact_number,
-  })
+  await db.insert(applicants).values(entry)
 }

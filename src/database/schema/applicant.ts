@@ -1,5 +1,6 @@
 import { InferModel, sql } from "drizzle-orm"
 import { numeric, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { properties } from "./properties"
 
 export const applicants = pgTable("applicants", {
   id: uuid("id")
@@ -16,6 +17,9 @@ export const applicants = pgTable("applicants", {
   status: text("status", {
     enum: ["pending", "confirmed", "declined"],
   }).default("pending"),
+  property_id: uuid("property_id")
+    .notNull()
+    .references(() => properties.id),
   created_at: timestamp("created_at").defaultNow().notNull(),
 })
 

@@ -7,14 +7,18 @@ import { Step1, FormFields as Step1FormFields } from "./step-1"
 import { Step2, FormFields as Step2FormFields } from "./step-2"
 import { Step3, FormFields as Step3FormFields } from "./step-3"
 
-export const ApplicationForm = () => {
+interface Props {
+  property_id: string
+}
+
+export const ApplicationForm = ({ property_id }: Props) => {
   const { active, next, prev } = useStepper()
   const [step1Data, setStep1Data] = useState<Step1FormFields>()
   const [step2Data, setStep2Data] = useState<Step2FormFields>()
   const [step3Data, setStep3Data] = useState<Step3FormFields>()
 
   const handleSubmit = () => {
-    const data = { ...step1Data!, ...step2Data!, ...step3Data! }
+    const data = { property_id, ...step1Data!, ...step2Data!, ...step3Data! }
     createApplicant(data)
   }
 
