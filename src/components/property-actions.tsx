@@ -1,3 +1,6 @@
+"use client"
+
+import copy from "copy-to-clipboard"
 import Link from "next/link"
 import { IconEllipsisVertical } from "./Icons/Outline"
 
@@ -6,6 +9,10 @@ interface Props {
 }
 
 export const PropertyActions = ({ id }: Props) => {
+  const handleCopy = () => {
+    copy(window.location.origin + "/application/" + id)
+  }
+
   return (
     <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
       <label tabIndex={0}>
@@ -17,6 +24,11 @@ export const PropertyActions = ({ id }: Props) => {
       >
         <li>
           <Link href={`/properties/edit/${id}`}>Edit</Link>
+        </li>
+        <li>
+          <button type="button" onClick={handleCopy}>
+            Copy
+          </button>
         </li>
       </ul>
     </div>

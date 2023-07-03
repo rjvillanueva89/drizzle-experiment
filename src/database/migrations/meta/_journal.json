@@ -15,6 +15,13 @@
       "when": 1688252275655,
       "tag": "0001_nervous_wild_child",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1688361846636,
+      "tag": "0002_easy_domino",
+      "breakpoints": true
     }
   ]
 }

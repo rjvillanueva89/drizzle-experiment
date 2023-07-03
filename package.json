@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "npx drizzle-kit generate:pg && npx tsx src/database/migrate.ts"
+    "db:push": "npx drizzle-kit generate:pg && npx tsx src/database/migrate.ts",
+    "db:studio": "npx drizzle-kit studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.1",
     "clsx": "^1.2.1",
+    "copy-to-clipboard": "^3.3.3",
     "daisyui": "^3.1.6",
     "dayjs": "^1.11.9",
     "drizzle-orm": "^0.27.0",

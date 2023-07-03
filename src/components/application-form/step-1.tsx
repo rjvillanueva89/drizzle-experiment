@@ -1,52 +1,37 @@
-"use client"
-
-import { createProperty } from "@/actions/create-property"
-import { updateProperty } from "@/actions/update-property"
-import { Property } from "@/database/schema/properties"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
-import { useRouter } from "next/navigation"
+import { Dispatch, SetStateAction } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { StepFooter } from "../stepper"
 
 const FormSchema = z.object({
   name: z.string().min(1),
-  monthly: z.string().min(1),
-  notes: z.string().nullable(),
+  email: z.string().min(1),
+  phone: z.string().min(1),
 })
 
-type FormFields = z.infer<typeof FormSchema>
+export type FormFields = z.infer<typeof FormSchema>
 
 interface Props {
-  data?: Property
+  data?: FormFields
+  setData: Dispatch<SetStateAction<FormFields | undefined>>
+  next: VoidFunction
 }
 
-export const PropertyForm = ({ data }: Props) => {
-  const { push } = useRouter()
-
+export const Step1 = ({ data, setData, next }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormFields>({
     resolver: zodResolver(FormSchema),
-    defaultValues: data
-      ? {
-          name: data.name,
-          monthly: data.monthly,
-          notes: data.notes,
-        }
-      : {},
+    defaultValues: data ? { ...data } : {},
   })
 
-  const onSubmit = ({ name, monthly, notes }: FormFields) => {
-    if (data) {
-      updateProperty(data.id, { name, monthly, notes })
-    } else {
-      createProperty({ name, monthly, notes })
-    }
-
-    push("/properties")
+  const onSubmit = (data: FormFields) => {
+    setData(data)
+    next()
   }
 
   return (
@@ -70,33 +55,37 @@ export const PropertyForm = ({ data }: Props) => {
       </div>
       <div className="form-control w-full max-w-sm">
         <label className="label">
-          <span className="label-text">Monthly</span>
+          <span className="label-text">Email</span>
         </label>
         <input
-          type="number"
-          placeholder="Monthly"
+          type="email"
+          placeholder="Email"
           className={clsx(
             "input input-bordered w-full max-w-sm",
-            errors.monthly && "input-error"
+            errors.name && "input-error"
           )}
-          {...register("monthly")}
+          {...register("email")}
         />
       </div>
       <div className="form-control w-full max-w-sm">
         <label className="label">
-          <span className="label-text">Notes</span>
+          <span className="label-text">Phone</span>
         </label>
-        <textarea
-          className="textarea textarea-bordered"
-          placeholder="Notes"
-          {...register("notes")}
+        <input
+          type="text"
+          placeholder="Phone"
+          className={clsx(
+            "input input-bordered w-full max-w-sm",
+            errors.name && "input-error"
+          )}
+          {...register("phone")}
         />
       </div>
-      <div className="flex w-full justify-end gap-4">
+      <StepFooter>
         <button type="submit" className="btn btn-ghost">
-          Submit
+          Next
         </button>
-      </div>
+      </StepFooter>
     </form>
   )
 }

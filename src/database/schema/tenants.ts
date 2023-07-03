@@ -8,7 +8,9 @@ export const tenants = pgTable("tenants", {
   name: text("name").notNull(),
   phone: text("phone").notNull(),
   email: text("email").notNull(),
-  status: text("status", { enum: ["pending", "confirmed", "declined"] }),
+  status: text("status", {
+    enum: ["pending", "confirmed", "declined"],
+  }).default("pending"),
   created_at: timestamp("created_at").defaultNow().notNull(),
 })
 
