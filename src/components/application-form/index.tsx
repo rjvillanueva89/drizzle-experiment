@@ -1,5 +1,6 @@
 "use client"
 
+import { createApplicant } from "@/actions/create-applicant"
 import { Step, Stepper, useStepper } from "@/components/stepper"
 import { useState } from "react"
 import { Step1, FormFields as Step1FormFields } from "./step-1"
@@ -13,7 +14,8 @@ export const ApplicationForm = () => {
   const [step3Data, setStep3Data] = useState<Step3FormFields>()
 
   const handleSubmit = () => {
-    const data = { ...step1Data, ...step2Data, ...step3Data }
+    const data = { ...step1Data!, ...step2Data!, ...step3Data! }
+    createApplicant(data)
   }
 
   return (

@@ -31,7 +31,7 @@ export const Step3 = ({ data, setData, prev, done }: Props) => {
 
   const onSubmit = (data: FormFields) => {
     setData(data)
-    done()
+    setTimeout(done, 500)
   }
 
   return (
