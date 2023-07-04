@@ -23,7 +23,7 @@ export const PropertyActions = ({ id }: Props) => {
         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <Link href={`/properties/edit/${id}`}>Edit</Link>
+          <Link href={`/property/edit/${id}`}>Edit</Link>
         </li>
         <li>
           <button type="button" onClick={handleCopy}>

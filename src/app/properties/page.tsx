@@ -7,7 +7,7 @@ export default async function PropertiesPage() {
     <>
       <div className="flex items-center justify-between">
         <Menu label="Properties" />
-        <Link href="/properties/new" className="btn btn-ghost">
+        <Link href="/property/new" className="btn btn-ghost">
           New Property
         </Link>
       </div>
