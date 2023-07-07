@@ -1,6 +1,7 @@
 "use client"
 
 import clsx from "clsx"
+import { signOut } from "next-auth/react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { IconBars3 } from "./Icons/Outline"
@@ -46,6 +47,11 @@ export const Menu = ({ label }: Props) => {
             </li>
           )
         })}
+        <li>
+          <button type="button" onClick={() => signOut()}>
+            Sign out
+          </button>
+        </li>
       </ul>
     </div>
   )
