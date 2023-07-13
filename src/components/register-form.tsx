@@ -1,5 +1,6 @@
 "use client"
 
+import { createUser } from "@/actions/create-user"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
 import { useForm } from "react-hook-form"
@@ -23,7 +24,9 @@ export const RegisterForm = () => {
     resolver: zodResolver(FormSchema),
   })
 
-  const onSubmit = (data: FormFields) => {}
+  const onSubmit = (data: FormFields) => {
+    createUser(data)
+  }
 
   return (
     <form
