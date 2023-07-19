@@ -20,6 +20,7 @@ const LINK_ITEMS: Links[] = [
   { label: "Properties", link: "/properties" },
   { label: "Contracts", link: "/contracts" },
   { label: "Invoices", link: "/invoices" },
+  { label: "Users", link: "/users" },
 ]
 
 export const Menu = ({ label }: Props) => {

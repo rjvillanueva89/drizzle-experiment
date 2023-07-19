@@ -1,4 +1,4 @@
-import { Menu } from "@/components/Menu"
+import { Menu } from "@/components/menu"
 import { PropertiesTable } from "@/components/properties-table"
 import Link from "next/link"
 

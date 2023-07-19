@@ -1,7 +1,7 @@
 import LoginForm from "@/components/login-form"
 import Link from "next/link"
 
-export default async function Home() {
+const LoginPage = () => {
   return (
     <>
       <div className="flex items-center justify-between">
@@ -14,3 +14,5 @@ export default async function Home() {
     </>
   )
 }
+
+export default LoginPage

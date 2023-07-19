@@ -1,6 +1,6 @@
+import Loader from "@/components/Loader"
 import clsx from "clsx"
 import { PropsWithChildren, ReactNode } from "react"
-import Loader from "./Loader"
 
 export type Column<T> = {
   label: string

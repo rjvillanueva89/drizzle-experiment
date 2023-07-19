@@ -7,13 +7,12 @@ import { UserActions } from "./user-actions"
 const columns: Column<User>[] = [
   { label: "Name", cell: ({ name }) => name },
   { label: "Username", cell: ({ username }) => username },
-  { label: "Password", cell: ({ password }) => password },
   {
     label: "Created at",
     cell: ({ created_at }) => dayjs(created_at).format("MM/DD/YYYY"),
   },
   {
-    label: "Actions",
+    label: "",
     cell: ({ id }) => <UserActions id={id} />,
   },
 ]
