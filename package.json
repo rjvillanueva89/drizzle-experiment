@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "npx drizzle-kit generate:pg && npx tsx src/database/migrate.ts",
-    "db:studio": "npx drizzle-kit studio"
+    "types": "tsc --noEmit",
+    "db:push": "npx drizzle-kit generate:pg && npx tsx src/database/migrate.ts"
   },
   "dependencies": {
     "@apollo/client": "^3.7.16",

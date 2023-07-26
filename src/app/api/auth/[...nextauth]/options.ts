@@ -31,9 +31,7 @@ export const options: NextAuthOptions = {
         const data = await db
           .select()
           .from(users)
-          .where(
-            and(eq(users.username, identifier!), eq(users.password, password!))
-          )
+          .where(and(eq(users.username, identifier!)))
 
         if (!data) return null
 
