@@ -1,4 +1,4 @@
-import Loader from "@/components/loader"
+import Loader from "@/components/Loader"
 import clsx from "clsx"
 import { PropsWithChildren, ReactNode } from "react"
 
