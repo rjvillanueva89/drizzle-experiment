@@ -1,6 +1,5 @@
 "use client"
 
-import useToggle from "@/utils/useToggle"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
 import { signIn } from "next-auth/react"
@@ -15,7 +14,6 @@ const FormSchema = z.object({
 type FormInputs = z.infer<typeof FormSchema>
 
 const LoginForm = () => {
-  const { state: isLoading, toggle: toggleLoading } = useToggle()
   const {
     register,
     handleSubmit,
@@ -25,7 +23,6 @@ const LoginForm = () => {
   })
 
   const onSubmit = handleSubmit((data: FormInputs) => {
-    toggleLoading()
     signIn("credentials", { ...data, callbackUrl: "/properties" })
   })
 

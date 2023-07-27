@@ -1,7 +1,7 @@
 import { db } from "@/database/db"
 import { users } from "@/database/schema/users"
 import { and, eq } from "drizzle-orm"
-import { NextAuthOptions } from "next-auth"
+import { NextAuthOptions, Session } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import GitHubProvider from "next-auth/providers/github"
 
@@ -33,6 +33,8 @@ export const options: NextAuthOptions = {
           .from(users)
           .where(and(eq(users.username, identifier!)))
 
+        console.log(data)
+
         if (!data) return null
 
         const { id, name, email } = data[0]
@@ -40,6 +42,20 @@ export const options: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      const sessionResponse: Session = {
+        ...session,
+        user: {
+          id: token.sub,
+          name: token.name,
+          email: token.email,
+        },
+      }
+
+      return Promise.resolve(sessionResponse)
+    },
+  },
   pages: {
     signIn: "/auth/login",
   },

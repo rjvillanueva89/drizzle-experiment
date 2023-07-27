@@ -8,6 +8,7 @@ export const properties = pgTable("properties", {
   name: text("name").notNull(),
   monthly: numeric("monthly").notNull(),
   notes: text("notes"),
+  created_by: uuid("created_by"),
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at"),
 })

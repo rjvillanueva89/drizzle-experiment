@@ -5,6 +5,7 @@ import { updateProperty } from "@/actions/update-property"
 import { Property } from "@/database/schema/properties"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -23,6 +24,7 @@ interface Props {
 
 export const PropertyForm = ({ data }: Props) => {
   const { push } = useRouter()
+  const session = useSession()
 
   const {
     register,
@@ -43,7 +45,12 @@ export const PropertyForm = ({ data }: Props) => {
     if (data) {
       updateProperty(data.id, { name, monthly, notes })
     } else {
-      createProperty({ name, monthly, notes })
+      createProperty({
+        name,
+        monthly,
+        notes,
+        created_by: session.data?.user.id as string,
+      })
     }
 
     push("/properties")
