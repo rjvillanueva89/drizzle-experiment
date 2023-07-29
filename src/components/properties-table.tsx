@@ -2,7 +2,7 @@ import { db } from "@/database/db"
 import { Property, properties } from "@/database/schema/properties"
 import { User, users } from "@/database/schema/users"
 import dayjs from "dayjs"
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { Column, Datatable } from "./datatable"
 import { PropertyActions } from "./property-actions"
 
@@ -29,9 +29,8 @@ export const PropertiesTable = async () => {
   const data = (await db
     .select()
     .from(properties)
-    .leftJoin(users, eq(users.id, properties.created_by))) as PropertyUser[]
-
-  console.log(data)
+    .leftJoin(users, eq(users.id, properties.created_by))
+    .orderBy(sql`${properties.created_at} asc`)) as PropertyUser[]
 
   return <Datatable columns={columns} data={data} />
 }

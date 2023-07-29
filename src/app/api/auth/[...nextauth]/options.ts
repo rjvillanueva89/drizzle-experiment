@@ -33,8 +33,6 @@ export const options: NextAuthOptions = {
           .from(users)
           .where(and(eq(users.username, identifier!)))
 
-        console.log(data)
-
         if (!data) return null
 
         const { id, name, email } = data[0]
