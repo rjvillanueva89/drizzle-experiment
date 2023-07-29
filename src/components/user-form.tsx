@@ -1,10 +1,12 @@
 "use client"
 
 import { createUser } from "@/actions/create-user"
+import { updateUser } from "@/actions/update-user"
 import { User } from "@/database/schema/users"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
 import { useRouter } from "next/navigation"
+import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -21,6 +23,7 @@ interface Props {
 }
 
 export const UserForm = ({ data }: Props) => {
+  const [pending, startTransition] = useTransition()
   const { push } = useRouter()
   const {
     register,
@@ -37,8 +40,14 @@ export const UserForm = ({ data }: Props) => {
       : {},
   })
 
-  const onSubmit = (data: FormFields) => {
-    createUser(data)
+  const onSubmit = ({ name, email, username }: FormFields) => {
+    startTransition(() => {
+      if (data) {
+        updateUser(data.id, { name, email, username })
+      } else {
+        createUser({ name, email, username })
+      }
+    })
     push("/")
   }
 
@@ -75,8 +84,8 @@ export const UserForm = ({ data }: Props) => {
         {...register("username")}
       />
       <div className="flex w-full justify-end gap-4">
-        <button type="submit" className="btn btn-ghost">
-          Submit
+        <button type="submit" className="btn btn-ghost" disabled={pending}>
+          {pending ? "Loading" : "Submit"}
         </button>
       </div>
     </form>
