@@ -1,6 +1,7 @@
 import { db } from "@/database/db"
 import { User, users } from "@/database/schema/users"
 import dayjs from "dayjs"
+import { sql } from "drizzle-orm"
 import { Column, Datatable } from "./datatable"
 import { UserActions } from "./user-actions"
 
@@ -18,7 +19,10 @@ const columns: Column<User>[] = [
 ]
 
 export const UsersTable = async () => {
-  const data = await db.select().from(users)
+  const data = await db
+    .select()
+    .from(users)
+    .orderBy(sql`${users.created_at} asc`)
 
   return <Datatable columns={columns} data={data} />
 }
