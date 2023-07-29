@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
 import { signIn } from "next-auth/react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -14,6 +15,7 @@ const FormSchema = z.object({
 type FormInputs = z.infer<typeof FormSchema>
 
 const LoginForm = () => {
+  const [isLoading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -23,6 +25,7 @@ const LoginForm = () => {
   })
 
   const onSubmit = handleSubmit((data: FormInputs) => {
+    setLoading(true)
     signIn("credentials", { ...data, callbackUrl: "/properties" })
   })
 
@@ -48,8 +51,8 @@ const LoginForm = () => {
           {...register("password")}
         />
         <div className="flex w-full justify-end gap-4">
-          <button type="submit" className="btn btn-ghost">
-            Submit
+          <button type="submit" className="btn btn-ghost" disabled={isLoading}>
+            {isLoading ? "Loading" : "Submit"}
           </button>
         </div>
       </form>

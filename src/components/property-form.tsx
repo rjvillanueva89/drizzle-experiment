@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import { useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export const PropertyForm = ({ data }: Props) => {
+  const [pending, startTransition] = useTransition()
   const { push } = useRouter()
   const session = useSession()
 
@@ -42,16 +44,18 @@ export const PropertyForm = ({ data }: Props) => {
   })
 
   const onSubmit = ({ name, monthly, notes }: FormFields) => {
-    if (data) {
-      updateProperty(data.id, { name, monthly, notes })
-    } else {
-      createProperty({
-        name,
-        monthly,
-        notes,
-        created_by: session.data?.user.id as string,
-      })
-    }
+    startTransition(() => {
+      if (data) {
+        updateProperty(data.id, { name, monthly, notes })
+      } else {
+        createProperty({
+          name,
+          monthly,
+          notes,
+          created_by: session.data?.user.id as string,
+        })
+      }
+    })
 
     push("/properties")
   }
@@ -100,8 +104,8 @@ export const PropertyForm = ({ data }: Props) => {
         />
       </div>
       <div className="flex w-full justify-end gap-4">
-        <button type="submit" className="btn btn-ghost">
-          Submit
+        <button type="submit" className="btn btn-ghost" disabled={pending}>
+          {pending ? "Loading" : "Submit"}
         </button>
       </div>
     </form>
