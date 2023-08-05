@@ -1,5 +1,5 @@
 import Modal from "@/components/modal"
-import useToggle from "@/utils/useToggle"
+import useToggle from "@/hooks/use-toggle"
 import { PropsWithChildren, createContext, useState } from "react"
 
 interface ConfirmProps {
