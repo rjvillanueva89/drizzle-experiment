@@ -1,25 +1,11 @@
 import Loader from "@/components/Loader"
 import clsx from "clsx"
-import { PropsWithChildren, ReactNode } from "react"
+import { ReactNode } from "react"
 
 export type Column<T> = {
   label: string
   headerClassName?: string
   cell: (data: T) => ReactNode
-}
-
-interface RowSpanProps extends PropsWithChildren {
-  length: number
-}
-
-const RowSpan = ({ length, children }: RowSpanProps) => {
-  return (
-    <tr>
-      <td colSpan={length} className="text-center">
-        {children}
-      </td>
-    </tr>
-  )
 }
 
 const DataCell = ({ label, render }: { label: string; render: ReactNode }) => {
@@ -48,7 +34,7 @@ export const DataRow = <T extends {}>({ columns, data }: DataRowProps<T>) => {
   )
 }
 
-interface DataTableProps<T> {
+interface DatatableProps<T> {
   loading?: boolean
   columns: Column<T>[]
   data?: T[]
@@ -60,7 +46,7 @@ export const Datatable = <T extends {}>({
   loading,
   columns,
   data,
-}: DataTableProps<T>) => {
+}: DatatableProps<T>) => {
   return (
     <table className="table">
       <thead className="hidden md:table-row-group">
@@ -74,13 +60,19 @@ export const Datatable = <T extends {}>({
       </thead>
       <tbody className="block md:table-row-group">
         {loading && (
-          <RowSpan length={columns.length}>
-            <Loader className="mx-auto h-10 w-10" />
-          </RowSpan>
+          <tr>
+            <td colSpan={columns.length} className="text-center">
+              <Loader className="mx-auto h-10 w-10" />
+            </td>
+          </tr>
         )}
 
         {!loading && data && !data.length && (
-          <RowSpan length={columns.length}>Nothing to display</RowSpan>
+          <tr>
+            <td colSpan={columns.length} className="text-center">
+              Nothing to display
+            </td>
+          </tr>
         )}
 
         {!loading &&
