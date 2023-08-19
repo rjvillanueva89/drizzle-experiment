@@ -1,5 +1,5 @@
 import { InferModel, sql } from "drizzle-orm"
-import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
+import { jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
 import { properties } from "./properties"
 
 export const tenants = pgTable("tenants", {
@@ -9,6 +9,7 @@ export const tenants = pgTable("tenants", {
   name: text("name").notNull(),
   phone: text("phone").notNull(),
   email: text("email").notNull(),
+  occupants: jsonb("occupants"),
   status: text("status", {
     enum: ["pending", "confirmed", "declined"],
   }).default("pending"),

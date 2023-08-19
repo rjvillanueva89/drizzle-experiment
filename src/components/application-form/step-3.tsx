@@ -14,7 +14,7 @@ export type FormFields = z.infer<typeof FormSchema>
 
 interface Props {
   data?: FormFields
-  setData: Dispatch<SetStateAction<FormFields | undefined>>
+  setData: Dispatch<SetStateAction<any>>
   prev: VoidFunction
   done: VoidFunction
 }
@@ -31,7 +31,6 @@ export const Step3 = ({ data, setData, prev, done }: Props) => {
 
   const onSubmit = (data: FormFields) => {
     setData(data)
-    setTimeout(done, 500)
   }
 
   return (

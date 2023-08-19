@@ -6,7 +6,7 @@ const RegisterPage = () => {
     <>
       <div className="flex items-center justify-between">
         <h1 className="uppercase font-semibold text-sm">Registration</h1>
-        <Link href="/" className="btn btn-ghost">
+        <Link href="/auth/login" className="btn btn-ghost">
           Back
         </Link>
       </div>

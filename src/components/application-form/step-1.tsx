@@ -15,7 +15,7 @@ export type FormFields = z.infer<typeof FormSchema>
 
 interface Props {
   data?: FormFields
-  setData: Dispatch<SetStateAction<FormFields | undefined>>
+  setData: Dispatch<SetStateAction<any>>
   next: VoidFunction
 }
 
