@@ -1,9 +1,15 @@
 "use client"
 
+import { createTenant } from "@/actions/create-tenant"
+import { updateTenant } from "@/actions/update-tenant"
+import { Tenant } from "@/database/schema/tenants"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
+import { useRouter } from "next/navigation"
+import { useTransition } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
+import { IconTrash } from "./Icons/Outline"
 
 const OccupantSchema = z.object({
   name: z.string().min(1),
@@ -17,9 +23,17 @@ const FormSchema = z.object({
   // startDate: z.date().optional(),
 })
 
-export type FormFields = z.infer<typeof FormSchema>
+type OccupantFields = z.infer<typeof OccupantSchema>
+type FormFields = z.infer<typeof FormSchema>
 
-export const TenantForm = () => {
+interface Props {
+  tenant?: Tenant
+}
+
+export const TenantForm = ({ tenant }: Props) => {
+  const [pending, startTransition] = useTransition()
+  const { push } = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -27,9 +41,16 @@ export const TenantForm = () => {
     control,
   } = useForm<FormFields>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      occupants: [{ name: "" }],
-    },
+    defaultValues: tenant
+      ? {
+          name: tenant.name,
+          email: tenant.email,
+          phone: tenant.phone,
+          occupants: tenant.occupants as OccupantFields[],
+        }
+      : {
+          occupants: [{ name: "" }],
+        },
   })
 
   const { fields, append, remove } = useFieldArray({
@@ -37,7 +58,17 @@ export const TenantForm = () => {
     name: "occupants",
   })
 
-  const onSubmit = (data: FormFields) => {}
+  const onSubmit = (data: FormFields) => {
+    startTransition(() => {
+      if (tenant) {
+        updateTenant(tenant.id, data)
+      } else {
+        createTenant(data)
+      }
+    })
+
+    push("/tenants")
+  }
 
   return (
     <form
@@ -90,17 +121,22 @@ export const TenantForm = () => {
               type="text"
               placeholder="Occupant Name"
               className={clsx(
-                "input input-bordered",
+                "input input-bordered w-full",
                 errors.occupants?.[key]?.name && "input-error"
               )}
               {...register(`occupants.${key}.name`)}
             />
+            {key !== 0 && (
+              <button type="button" onClick={() => remove(key)}>
+                <IconTrash />
+              </button>
+            )}
           </div>
         )
       })}
-      <div className="flex justify-end w-full">
-        <button type="submit" className="btn btn-ghost">
-          Submit
+      <div className="flex justify-end w-full max-w-sm">
+        <button type="submit" className="btn btn-ghost" disabled={pending}>
+          {pending ? "Loading" : "Submit"}
         </button>
       </div>
     </form>

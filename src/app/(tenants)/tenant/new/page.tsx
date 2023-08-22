@@ -1,6 +1,6 @@
 import { TenantForm } from "@/components/tenant-form"
 
-const TenantFormPage = () => {
+const NewTenantPage = () => {
   return (
     <>
       <h1>Tenant Info</h1>
@@ -9,4 +9,4 @@ const TenantFormPage = () => {
   )
 }
 
-export default TenantFormPage
+export default NewTenantPage

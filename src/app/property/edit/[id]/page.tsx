@@ -13,7 +13,7 @@ export default async function EditPropertyPage({ params }: Props) {
     .select()
     .from(properties)
     .where(eq(properties.id, params.id))
-  const property = data[0] as Property
+  const property: Property = data[0]
 
   return (
     <>
