@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteUser } from "@/actions/delete-user"
+import { deleteTenant } from "@/actions/delete-tenant"
 import Link from "next/link"
 import { IconEllipsisVertical } from "./Icons/Outline"
 
@@ -9,13 +9,9 @@ interface Props {
 }
 
 export const TenantActions = ({ id }: Props) => {
-  const handleDelete = () => {
-    deleteUser(id)
-  }
-
   return (
     <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
-      <label tabIndex={0}>
+      <label tabIndex={0} className="hover:cursor-pointer">
         <IconEllipsisVertical className="h-5 w-5" />
       </label>
       <ul
@@ -26,7 +22,7 @@ export const TenantActions = ({ id }: Props) => {
           <Link href={`/tenant/edit/${id}`}>Edit</Link>
         </li>
         <li>
-          <button type="button" onClick={handleDelete}>
+          <button type="button" onClick={() => deleteTenant(id)}>
             Delete
           </button>
         </li>

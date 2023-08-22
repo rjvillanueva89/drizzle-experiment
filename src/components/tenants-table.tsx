@@ -7,6 +7,7 @@ import { TenantActions } from "./tenant-actions"
 
 const columns: Column<Tenant>[] = [
   { label: "Name", cell: ({ name }) => name },
+  { label: "Phone", cell: ({ phone }) => phone },
   {
     label: "Created at",
     cell: ({ created_at }) => dayjs(created_at).format("MM/DD/YYYY"),
