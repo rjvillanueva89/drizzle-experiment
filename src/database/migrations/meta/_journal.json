@@ -36,6 +36,20 @@
       "when": 1692240973108,
       "tag": "0004_brainy_expediter",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1692666513496,
+      "tag": "0005_rich_molly_hayes",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1692753589019,
+      "tag": "0006_acoustic_orphan",
+      "breakpoints": true
     }
   ]
 }

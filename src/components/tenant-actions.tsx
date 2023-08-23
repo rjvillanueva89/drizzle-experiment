@@ -22,6 +22,10 @@ export const TenantActions = ({ id }: Props) => {
           <Link href={`/tenant/edit/${id}`}>Edit</Link>
         </li>
         <li>
+          <Link href={`/statement/new/${id}`}>Add Statement</Link>
+        </li>
+
+        <li>
           <button type="button" onClick={() => deleteTenant(id)}>
             Delete
           </button>

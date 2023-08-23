@@ -20,7 +20,6 @@ const FormSchema = z.object({
   email: z.string().min(1),
   phone: z.string().min(1),
   occupants: OccupantSchema.array().min(1),
-  // startDate: z.date().optional(),
 })
 
 type OccupantFields = z.infer<typeof OccupantSchema>
