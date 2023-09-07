@@ -17,7 +17,9 @@ export const statements = pgTable("statements", {
   items: jsonb("items").notNull(),
   total: numeric("total").notNull(),
   due_date: timestamp("due_date"),
-  tenant_id: uuid("tenant_id").references(() => tenants.id),
+  tenant_id: uuid("tenant_id")
+    .references(() => tenants.id)
+    .notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
 })
 

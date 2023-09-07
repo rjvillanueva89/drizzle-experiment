@@ -1,14 +1,13 @@
 "use client"
 
-import { deleteTenant } from "@/actions/delete-tenant"
-import Link from "next/link"
+import { deleteStatement } from "@/actions/delete-statement"
 import { IconEllipsisVertical } from "./Icons/Outline"
 
 interface Props {
   id: string
 }
 
-export const TenantActions = ({ id }: Props) => {
+export const StatementActions = ({ id }: Props) => {
   return (
     <div className="dropdown dropdown-hover dropdown-bottom dropdown-end">
       <label tabIndex={0} className="hover:cursor-pointer">
@@ -19,16 +18,7 @@ export const TenantActions = ({ id }: Props) => {
         className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-          <Link href={`/tenant/edit/${id}`}>Edit</Link>
-        </li>
-        <li>
-          <Link href={`/statement/new/${id}`}>Add Statement</Link>
-        </li>
-        <li>
-          <Link href={`/statements/${id}`}>View Statements</Link>
-        </li>
-        <li>
-          <button type="button" onClick={() => deleteTenant(id)}>
+          <button type="button" onClick={() => deleteStatement(id)}>
             Delete
           </button>
         </li>
