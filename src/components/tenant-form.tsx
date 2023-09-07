@@ -125,11 +125,9 @@ export const TenantForm = ({ tenant }: Props) => {
               )}
               {...register(`occupants.${key}.name`)}
             />
-            {key !== 0 && (
-              <button type="button" onClick={() => remove(key)}>
-                <IconTrash />
-              </button>
-            )}
+            <button type="button" onClick={() => remove(key)}>
+              <IconTrash />
+            </button>
           </div>
         )
       })}

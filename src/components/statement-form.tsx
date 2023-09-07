@@ -1,5 +1,6 @@
 "use client"
 
+import { createStatement } from "@/actions/create-statement"
 import { formatCurrencyPHP } from "@/utils/currency"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
@@ -17,7 +18,7 @@ const ItemSchema = z.object({
 
 const FormSchema = z.object({
   title: z.string().min(1),
-  due_date: z.string().optional(),
+  due_date: z.string().nullable(),
   items: ItemSchema.array().min(1),
 })
 
@@ -25,7 +26,7 @@ type ItemFields = z.infer<typeof ItemSchema>
 type FormFields = z.infer<typeof FormSchema>
 
 interface Props {
-  tenant_id?: string
+  tenant_id: string
 }
 
 export const StatementForm = ({ tenant_id }: Props) => {
@@ -63,7 +64,14 @@ export const StatementForm = ({ tenant_id }: Props) => {
   }, [watchItems, totalAmount, setTotal])
 
   const onSubmit = (data: FormFields) => {
-    startTransition(() => {})
+    startTransition(() => {
+      createStatement({
+        ...data,
+        due_date: data.due_date ? new Date(data.due_date) : null,
+        total: total.toString(),
+        tenant_id,
+      })
+    })
 
     push("/tenants")
   }

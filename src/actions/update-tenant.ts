@@ -11,9 +11,9 @@ export const updateTenant = async (
   data: Pick<Tenant, "name" | "email" | "phone" | "occupants">
 ) => {
   const schema = createInsertSchema(tenants)
-  const tenant = schema.parse(data)
+  const entry = schema.parse(data)
 
-  await db.update(tenants).set(tenant).where(eq(tenants.id, id))
+  await db.update(tenants).set(entry).where(eq(tenants.id, id))
 
   revalidatePath("/tenants")
 }

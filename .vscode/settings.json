@@ -8,6 +8,5 @@
   "files.exclude": {
     "**/.next": true,
     "**/.turbo": true
-  },
-  "eslint.packageManager": "pnpm"
+  }
 }
