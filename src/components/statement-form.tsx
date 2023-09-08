@@ -76,8 +76,6 @@ export const StatementForm = ({ tenant_id }: Props) => {
     push("/tenants")
   }
 
-  console.log(errors)
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
