@@ -1,12 +1,5 @@
 import { InferModel, sql } from "drizzle-orm"
-import {
-  jsonb,
-  numeric,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core"
+import { numeric, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core"
 import { tenants } from "./tenants"
 
 export const statements = pgTable("statements", {
@@ -14,7 +7,6 @@ export const statements = pgTable("statements", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   title: text("title").notNull(),
-  items: jsonb("items").notNull(),
   total: numeric("total").notNull(),
   due_date: timestamp("due_date"),
   tenant_id: uuid("tenant_id")

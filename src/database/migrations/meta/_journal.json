@@ -8,6 +8,20 @@
       "when": 1694135955521,
       "tag": "0000_flippant_gunslinger",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1695342872836,
+      "tag": "0001_young_smiling_tiger",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1695342924052,
+      "tag": "0002_sparkling_ultimates",
+      "breakpoints": true
     }
   ]
 }
