@@ -14,4 +14,6 @@ export const createStatement = async (
   const statement = await db.insert(statements).values(entry).returning()
 
   revalidatePath("/tenants")
+
+  return statement[0]
 }

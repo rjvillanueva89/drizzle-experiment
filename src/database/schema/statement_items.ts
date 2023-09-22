@@ -6,7 +6,7 @@ export const statement_items = pgTable("statement_items", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  item: text("item").notNull(),
+  title: text("title").notNull(),
   description: text("description"),
   amount: numeric("amount").notNull(),
   statement_id: uuid("statement_id")

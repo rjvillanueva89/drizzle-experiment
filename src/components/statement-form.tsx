@@ -1,6 +1,7 @@
 "use client"
 
 import { createStatement } from "@/actions/create-statement"
+import { createStatementItem } from "@/actions/create-statement-item"
 import { formatCurrencyPHP } from "@/utils/currency"
 import { zodResolver } from "@hookform/resolvers/zod"
 import clsx from "clsx"
@@ -63,13 +64,22 @@ export const StatementForm = ({ tenant_id }: Props) => {
     }
   }, [watchItems, totalAmount, setTotal])
 
-  const onSubmit = (data: FormFields) => {
-    startTransition(() => {
-      createStatement({
-        ...data,
-        due_date: data.due_date ? new Date(data.due_date) : null,
+  const onSubmit = ({ title, due_date, items }: FormFields) => {
+    startTransition(async () => {
+      const statement = await createStatement({
+        title,
+        due_date: due_date ? new Date(due_date) : null,
         total: total.toString(),
         tenant_id,
+      })
+
+      items.forEach(({ title, description, amount }) => {
+        createStatementItem({
+          statement_id: statement.id,
+          title,
+          description,
+          amount,
+        })
       })
     })
 

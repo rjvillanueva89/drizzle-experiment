@@ -1,0 +1,1 @@
+ALTER TABLE "statement_items" RENAME COLUMN "item" TO "title";
